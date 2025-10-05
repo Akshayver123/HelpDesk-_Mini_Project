@@ -14,11 +14,21 @@ app.get('/', (_req, res) => {
   res.json({ name: 'HelpDesk Mini API', status: 'ok' });
 });
 
+app.get('/api', (_req, res) => {
+  res.json({ name: 'HelpDesk Mini API', status: 'ok', version: '1.0.0' });
+});
+
 app.use('/api/auth', authRouter);
 app.use('/api/tickets', ticketsRouter);
 app.use('/api/comments', commentsRouter);
 
-app.listen(config.port, () => {
-  console.log(`✅ API running on http://localhost:${config.port}`);
-  startSlaChecker();
-});
+// For local development
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(config.port, () => {
+    console.log(`✅ API running on http://localhost:${config.port}`);
+    startSlaChecker();
+  });
+}
+
+// For Vercel serverless functions
+export default app;
