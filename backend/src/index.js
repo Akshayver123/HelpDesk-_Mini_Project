@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { config } from './config.js';
-import authRouter from './routes/auth.js';
+import authRouter from './simple-auth.js';
 import ticketsRouter from './routes/tickets.js';
 import commentsRouter from './routes/comments.js';
 import { startSlaChecker } from './utils/slaChecker.js';
